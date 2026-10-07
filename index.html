@@ -1,10 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>nPlayer Drive</title></head>
-<body style="font-family:sans-serif;max-width:640px;margin:40px auto;padding:0 16px">
-<h1>nPlayer Drive</h1>
-<p>This is a personal project for Drive file browsing and login.</p>
-<p><a href="privacy.html">Privacy Policy</a></p>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="nPlayer Drive — a personal project for Drive file browsing and login.">
+<meta name="theme-color" content="#080a0f">
+<title>nPlayer Drive</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath d='M32 8 L56 48 L8 48 Z' fill='none' stroke='%234285F4' stroke-width='6' stroke-linejoin='round'/%3E%3Ccircle cx='32' cy='38' r='5' fill='%2334A853'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root { color-scheme: dark; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  ::selection { background: rgba(66,133,244,.35); }
+  body {
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    min-height: 100vh; display: flex; align-items: center; justify-content: center;
+    background: #080a0f; color: #e8ebf1; padding: 24px;
+    background-image:
+      radial-gradient(800px 500px at 15% 5%, rgba(66,133,244,.13), transparent 60%),
+      radial-gradient(700px 500px at 90% 95%, rgba(52,168,83,.09), transparent 60%),
+      radial-gradient(500px 400px at 80% 10%, rgba(156,39,176,.06), transparent 60%);
+    -webkit-font-smoothing: antialiased;
+  }
+  body::before {
+    content: ""; position: fixed; inset: 0; pointer-events: none; opacity: .5;
+    background-image:
+      linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+    background-size: 44px 44px;
+    mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, black 30%, transparent 75%);
+    -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, black 30%, transparent 75%);
+  }
+  .card {
+    position: relative; max-width: 580px; width: 100%; text-align: center;
+    background: rgba(255,255,255,.035);
+    border: 1px solid rgba(255,255,255,.09);
+    border-radius: 22px; padding: 52px 44px;
+    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    box-shadow: 0 24px 70px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.06);
+    overflow: hidden;
+  }
+  .card::before {
+    content: ""; position: absolute; top: 0; left: 10%; right: 10%; height: 2px;
+    background: linear-gradient(90deg, transparent, #4285F4, #34A853, transparent);
+    border-radius: 2px;
+  }
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 11px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase;
+    color: #9aa4b2; border: 1px solid rgba(255,255,255,.13); border-radius: 999px;
+    padding: 7px 16px; margin-bottom: 24px; background: rgba(255,255,255,.03);
+  }
+  .badge .dot { width: 6px; height: 6px; border-radius: 50%; background: #34A853; box-shadow: 0 0 8px #34A853; }
+  .mark { margin-bottom: 20px; filter: drop-shadow(0 6px 18px rgba(66,133,244,.35)); }
+  h1 { font-size: 36px; font-weight: 800; letter-spacing: -1px; margin-bottom: 14px; }
+  h1 .grad {
+    background: linear-gradient(135deg, #5b9bff, #34A853);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  p.desc { color: #98a2b3; font-size: 16.5px; line-height: 1.65; margin-bottom: 30px; font-weight: 400; }
+  .chips { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 34px; }
+  .chip {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 13px; font-weight: 500; color: #c8d0dc;
+    background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.09);
+    padding: 9px 17px; border-radius: 999px;
+  }
+  .chip i { width: 6px; height: 6px; border-radius: 50%; display: inline-block; }
+  .chip .b { background: #4285F4; } .chip .g { background: #34A853; }
+  a.btn {
+    display: inline-block; color: #e8ebf1; text-decoration: none; font-size: 14px; font-weight: 600;
+    border: 1px solid rgba(255,255,255,.16); padding: 12px 26px; border-radius: 13px;
+    background: rgba(255,255,255,.04); transition: all .2s;
+  }
+  a.btn:hover { background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.28); transform: translateY(-1px); }
+  footer { margin-top: 30px; font-size: 12.5px; color: #5c6572; letter-spacing: .3px; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="badge"><span class="dot"></span>Personal Project</div>
+    <div class="mark">
+      <svg width="62" height="62" viewBox="0 0 64 64">
+        <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5b9bff"/><stop offset="1" stop-color="#34A853"/>
+        </linearGradient></defs>
+        <path d="M32 8 L56 48 L8 48 Z" fill="none" stroke="url(#g)" stroke-width="6" stroke-linejoin="round"/>
+        <circle cx="32" cy="38" r="5" fill="url(#g)"/>
+      </svg>
+    </div>
+    <h1>nPlayer <span class="grad">Drive</span></h1>
+    <p class="desc">This is a personal project for Drive file browsing and login.</p>
+    <div class="chips">
+      <span class="chip"><i class="b"></i>Drive Login</span>
+      <span class="chip"><i class="g"></i>File Browsing</span>
+    </div>
+    <a class="btn" href="privacy.html">Privacy Policy</a>
+    <footer>Built for personal use &middot; 2026</footer>
+  </div>
 </body>
 </html>
